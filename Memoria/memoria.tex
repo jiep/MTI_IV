@@ -65,7 +65,7 @@ Este caso práctico buscaremos un modelo lineal para predecir el valor medio de 
 
 \section{Resolución del caso práctico}
 
-En primer lugar, observamos el fichero de datos para ver qué variables son cuanitativas y categóricas. Observamos que todas las variables son cuantitativas, excepto una que es categórica: CHAS (1, si las vías cruzan el río y, 0 en caso contrario). Para cada de las variables, calculamos un resumen (mínimo, máximo, primer y tercer cuartil) usando R. El resumen de cada de las variables es el siguiente:
+En primer lugar, observamos el fichero de datos para ver qué variables son cuantitativas y categóricas. Observamos que todas las variables son cuantitativas, excepto una que es categórica: CHAS (1, si las vías cruzan el río y, 0 en caso contrario). Para cada de las variables, calculamos un resumen (mínimo, máximo, primer y tercer cuartil) usando R. El resumen de cada de las variables es el siguiente:
 
 \begin{verbatim}
       CRIM               ZN             INDUS            CHAS        
@@ -179,7 +179,7 @@ Si aplicamos al modelo las variables transformadas LOGCRIM, LOGZN, LOGCHAS y LOG
 E[MEDV_i |x, \theta] = \beta_0 + \beta_1 LOGCRIM_i + \beta_2 LOGZN_i + \beta_3 INDUS_i + \beta_4 LOGCHAS_i \\ + \beta_5 NOX_i + \beta_6 RM_i + \beta_7 AGE_i + \beta_8 DIS_i + \beta_9 RAD_i + \beta_{10} TAX_i + \beta_{11} PTRATIO_i \\ + \beta_{12} LOGB_i + \beta_{13} LSTAT_i
 \end{multline*}
 
-Al resolver este modelo con R, obtendremos un error puesto que las variables ZN y CHAS tienen elementos que son cero, por lo que $log(0) = -\infty$. No podemos aplicar esta tranformación a estas variables. El nuevo modelo, sin estas variables transformadas, queda de la siguiente forma:
+Al resolver este modelo con R, obtendremos un error puesto que las variables ZN y CHAS tienen elementos que son cero, por lo que $log(0) = -\infty$, que no permite a R ajustar el modelo. No podemos aplicar esta transformación a estas variables. El nuevo modelo, sin estas variables transformadas, queda de la siguiente forma:
 
 \begin{multline*}
 E[MEDV_i |x, \theta] = \beta_0 + \beta_1 LOGCRIM_i + \beta_2 ZN_i + \beta_3 INDUS_i + \beta_4 CHAS_i \\ + \beta_5 NOX_i + \beta_6 RM_i + \beta_7 AGE_i + \beta_8 DIS_i + \beta_9 RAD_i + \beta_{10} TAX_i + \beta_{11} PTRATIO_i \\ + \beta_{12} LOGB_i + \beta_{13} LSTAT_i
@@ -218,7 +218,7 @@ F-statistic: 105.5 on 13 and 492 DF,  p-value: < 2.2e-16
 
 Vemos que el coeficiente de determinación $R^2$ es menor que en el modelo anterior, por lo que este modelo con las variables transformadas es peor que el anterior.\\
 
-Como último intento intentamos otra transformación. Para obtener un nuevo modelo, aplicamos lo visto en el ejemplo resuelto. Aplicamos una transformación logarítima a la variable dependeniente, MEDV. Esta nueva variable la llamaremos LOGMEDV.\\
+Como último intento intentamos otra transformación. Para obtener un nuevo modelo, aplicamos lo visto en el ejemplo resuelto. Aplicamos una transformación logarítmica a la variable dependiente, MEDV. Esta nueva variable la llamaremos LOGMEDV.\\
 
 El nuevo modelo es
 
@@ -300,7 +300,7 @@ Y para $\sigma$, los valores son los siguientes:
 0.1809709 0.1901171 0.2006010 
 \end{verbatim}
 
-Supongamos que estamos interesados en comprobar cuál es el valor esperado de las casas en las que las vías cruzan el río y no lo cruzan. Para ello, creamos un grupo de covariables de la siguiente forma: todas las variables, excepto CHAS, tendrán el valor mediano de sus variables, y para CHAS usaremos sus dos valores: 0 y 1. Es decir, las covariables quedan de la siguiente manera:
+Supongamos que estamos interesados en comprobar cuál es el valor esperado de las casas en las que las vías cruzan el río y no lo cruzan. Para ello, creamos un grupo de covariables de la siguiente forma: todas las variables, excepto CHAS, tendrán el valor mediano de sus variables, y para CHAS usaremos sus dos posibles valores: 0 y 1. Es decir, las covariables quedan de la siguiente manera:
 
 \begin{table}[htbp!]
 \centering
@@ -343,7 +343,7 @@ Por último, calculamos los residuos bayesianos del modelo obtenido. En la Figur
 
 \section{Conclusiones}
 
-En este caso práctico hemos aprendido a usar modelos lineales con R, y en particular, para predecir el valor de las casas a partir de otras variables como la tasa el crimen o el ratio alumno-profesor. En nuestro modelo, casi todas las variables eran predictoras, excepto dos que apenas aportaban al modelo. Las variables más influyentes eran el crimen, el porcentaje de clase baja, el ratio alumno-profesor y la distancia a centros de empleo, entre otras. Aplicando transformaciones a los datos, hemos obtenido mejoras con respecto a nuestro modelo inicial. Por último, usando R ahorramos bastante tiempo debido al gran número de funciones y librerías,  y su potencia de cálculo.
+En este caso práctico hemos aprendido a usar modelos lineales con R, y en particular, para predecir el valor de las casas a partir de otras variables como la tasa el crimen o el ratio alumno-profesor. En nuestro modelo, casi todas las variables eran predictoras, excepto dos que apenas aportaban al modelo. Las variables más influyentes eran el crimen, el porcentaje de clase baja, el ratio alumno-profesor y la distancia a centros de empleo, entre otras. Aplicando transformaciones a los datos, hemos obtenido mejoras con respecto a nuestro modelo inicial. Por último, usando R ahorramos bastante tiempo debido al gran número de funciones y librerías, y a su gran potencia de cálculo.
 
 \newpage
 
